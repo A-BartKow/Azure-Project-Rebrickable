@@ -1,0 +1,7 @@
+{
+	"name": "Rebrickable_MPE",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/03b6d612-6de5-4a20-9593-97c0994bb508/resourceGroups/AgaBartKow_Rebrickable_Dev_RG/providers/Microsoft.Storage/storageAccounts/rebrickabledevadlsgen2",
+		"groupId": "dfs"
+	}
+}
