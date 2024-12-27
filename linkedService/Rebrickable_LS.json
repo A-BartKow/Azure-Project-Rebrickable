@@ -1,0 +1,10 @@
+{
+	"name": "Rebrickable_LS",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://rebrickabledevadlsgen2.dfs.core.windows.net/"
+		}
+	}
+}
