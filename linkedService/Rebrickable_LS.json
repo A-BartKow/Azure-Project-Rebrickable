@@ -5,10 +5,6 @@
 		"type": "AzureBlobFS",
 		"typeProperties": {
 			"url": "https://rebrickabledevadlsgen2.dfs.core.windows.net/"
-		},
-		"connectVia": {
-			"referenceName": "Rebrickable-ManagedVnetIR",
-			"type": "IntegrationRuntimeReference"
 		}
 	}
 }
