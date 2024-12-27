@@ -1,0 +1,9 @@
+{
+	"name": "rebrickabledevadf",
+	"location": "northeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e099a070-fd5e-49cd-a3c2-5edef284a8be",
+		"tenantId": "818ef175-5c29-482f-b1cf-11f5f6f50f5f"
+	}
+}
