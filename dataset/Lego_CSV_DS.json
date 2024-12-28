@@ -26,7 +26,7 @@
 					"type": "Expression"
 				},
 				"folderPath": {
-					"value": "@concat('Rebrickable/',dataset().SourceName,'/', formatDateTime(utcnow(),'yyyy'), '/', formatDateTime(utcnow(), 'MM'), '/', formatDateTime(utcnow(),'dd'))",
+					"value": "@concat('Rebrickable/', \n        dataset().SourceName,\n        '/', \n        dataset().DatasetName,\n        '/',\n        formatDateTime(utcnow(),'yyyy'), \n        '/', \n        formatDateTime(utcnow(), 'MM'), \n        '/', \n        formatDateTime(utcnow(),'dd'))",
 					"type": "Expression"
 				},
 				"fileSystem": "raw"
