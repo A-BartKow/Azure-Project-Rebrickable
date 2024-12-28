@@ -53,7 +53,7 @@
 					},
 					"url": "https://rebrickable.com/api/v3/users/_token/",
 					"body": {
-						"value": "{\n    \"username\":\"agaka1993\",\n    \"password\":\"@{activity('Get User password from Azure Key Vault').output.value}\"\n\n}",
+						"value": "{\n    \"username\":\"agaka1993\",\n    \"password\":\"Rudol2269\"\n\n}",
 						"type": "Expression"
 					}
 				}
