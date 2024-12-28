@@ -48,7 +48,8 @@
 						"Authorization": {
 							"value": "@concat('key ',activity('Get API key from Azure Key Vault').output.value)",
 							"type": "Expression"
-						}
+						},
+						"Content-Type": "application/x-www-form-urlencoded"
 					},
 					"url": "https://rebrickable.com/api/v3/users/_token/",
 					"body": {
