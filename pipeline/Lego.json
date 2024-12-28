@@ -51,13 +51,21 @@
 				"inputs": [
 					{
 						"referenceName": "Lego_Zipped_file_DS",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"Filename": "themes.csv.gz"
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "Lego_CSV_DS",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": "themes.csv",
+							"DatasetName": "Themes",
+							"SourceName": "LEGO"
+						}
 					}
 				]
 			}
