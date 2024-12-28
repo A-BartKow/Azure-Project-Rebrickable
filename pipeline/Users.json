@@ -44,6 +44,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"method": "POST",
+					"headers": {
+						"Authorization": {
+							"value": "@concat('key ',activity('Get API key from Azure Key Vault').output.value)",
+							"type": "Expression"
+						}
+					},
 					"url": "https://rebrickable.com/api/v3/users/_token/",
 					"body": {
 						"value": "{\n    \"username\":\"agaka1993\",\n    \"password\":\"@{activity('Get User password from Azure Key Vault').output.value}\"\n\n}",
