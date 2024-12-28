@@ -22,6 +22,62 @@
 						"resource": "https://vault.azure.net/"
 					}
 				}
+			},
+			{
+				"name": "Get user token",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Get API key from Azure Key Vault",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://rebrickable.com/api/v3/users/_token/",
+					"body": {
+						"value": "{\n    \"username\":\"agaka1993\",\n    \"password\":\"@{activity('Get User password from Azure Key Vault').output.value}\"\n\n}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Get API key from Azure Key Vault",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Get User password from Azure Key Vault",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://rebrickabledevakv.vault.azure.net/secrets/Rebrickable-API-Key?api-version=7.4",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://vault.azure.net/"
+					}
+				}
 			}
 		],
 		"annotations": []
