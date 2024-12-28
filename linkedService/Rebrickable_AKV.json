@@ -1,0 +1,10 @@
+{
+	"name": "Rebrickable_AKV",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://rebrickabledevakv.vault.azure.net/"
+		}
+	}
+}
