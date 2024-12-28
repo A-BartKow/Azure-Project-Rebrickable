@@ -5,8 +5,6 @@
 			{
 				"name": "Copy data for each file from Config table",
 				"type": "ForEach",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Select the config table values",
@@ -17,6 +15,10 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('Select the config table values').output.value",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "Copy data",
@@ -69,7 +71,10 @@
 									"referenceName": "Lego_Zipped_file_DS",
 									"type": "DatasetReference",
 									"parameters": {
-										"Filename": "themes.csv.gz"
+										"Filename": {
+											"value": "@concat(item().FileName,'csv.gz')",
+											"type": "Expression"
+										}
 									}
 								}
 							],
@@ -78,9 +83,18 @@
 									"referenceName": "Lego_CSV_DS",
 									"type": "DatasetReference",
 									"parameters": {
-										"FileName": "themes.csv",
-										"DatasetName": "Themes",
-										"SourceName": "LEGO"
+										"FileName": {
+											"value": "@concat(item().FileName,'.csv')",
+											"type": "Expression"
+										},
+										"DatasetName": {
+											"value": "@item().DatasetName",
+											"type": "Expression"
+										},
+										"SourceName": {
+											"value": "@item().SourceName",
+											"type": "Expression"
+										}
 									}
 								}
 							]
