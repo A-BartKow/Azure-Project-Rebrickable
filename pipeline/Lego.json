@@ -72,7 +72,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"Filename": {
-											"value": "@concat(item().FileName,'csv.gz')",
+											"value": "@concat(item().FileName,'.csv.gz')",
 											"type": "Expression"
 										}
 									}
