@@ -16,7 +16,11 @@
 				"userProperties": [],
 				"typeProperties": {
 					"method": "GET",
-					"url": "https://rebrickabledevakv.vault.azure.net/secrets/Rebrickable-User-Password?api-version=7.4"
+					"url": "https://rebrickabledevakv.vault.azure.net/secrets/Rebrickable-User-Password?api-version=7.4",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://vault.azure.net/"
+					}
 				}
 			}
 		],
