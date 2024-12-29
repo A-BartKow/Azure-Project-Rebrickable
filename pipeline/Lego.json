@@ -34,14 +34,13 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "DelimitedTextSource",
+									"type": "BinarySource",
 									"storeSettings": {
-										"type": "AzureBlobFSReadSettings",
-										"recursive": false,
-										"enablePartitionDiscovery": false
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
 									},
 									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
+										"type": "BinaryReadSettings"
 									}
 								},
 								"sink": {
@@ -56,23 +55,15 @@
 										"fileExtension": ".txt"
 									}
 								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
+								"enableStaging": false
 							},
 							"inputs": [
 								{
-									"referenceName": "Lego_Zipped_file_DS",
+									"referenceName": "Lego_Zipped_file_HTTP_DS",
 									"type": "DatasetReference",
 									"parameters": {
 										"Filename": {
-											"value": "@concat(item().FileName,'.csv.gz')",
+											"value": "@concat(item().Filename, '.csv.gz')",
 											"type": "Expression"
 										}
 									}
