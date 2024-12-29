@@ -239,7 +239,7 @@
 					"method": "POST",
 					"url": "https://prod-55.northeurope.logic.azure.com:443/workflows/19604fffe70544c79d68ce5208a74e2a/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=vQyauRZ3s7bQ4F-xlKOO6aYuEK7nxaW36WQGXXzblE4",
 					"body": {
-						"value": "{\n    \"message\" : \"This is a custom dynamic message from your pipeline with run ID @{pipeline().RunId}.\",\n    \"dataFactoryName\" : \"@{pipeline().DataFactory}\", \n    \"pipelineName\" : \"@{pipeline().Pipeline}\", \n    \"receiver\" : \"@{pipeline().parameters.receiver}\"\n   }",
+						"value": "{\n    \"message\" : \"This is a custom dynamic message from your pipeline with run ID @{pipeline().RunId}.\",\n    \"dataFactoryName\" : \"@{pipeline().DataFactory}\", \n    \"pipelineName\" : \"@{pipeline().Pipeline}\", \n    \"receiver\" : \"@{variables('reciever')}\"\n   }",
 						"type": "Expression"
 					}
 				}
