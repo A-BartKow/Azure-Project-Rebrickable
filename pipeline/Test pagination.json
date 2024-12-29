@@ -27,7 +27,7 @@
 							}
 						},
 						"paginationRules": {
-							"AbsoluteUrl": "$.$.next",
+							"AbsoluteUrl": "$.next",
 							"EndCondition:$.next": "Const:null"
 						}
 					},
