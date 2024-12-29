@@ -1,5 +1,5 @@
 {
-	"name": "Lego_CSV_DS",
+	"name": "Rebrickable_CSV_DS",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Rebrickable_LS",

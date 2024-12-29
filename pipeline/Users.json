@@ -121,6 +121,17 @@
 							"supportRFC5988": "true"
 						}
 					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
 					"enableStaging": false
 				},
 				"inputs": [
@@ -133,6 +144,17 @@
 								"type": "Expression"
 							},
 							"entityname": "allparts/"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Rebrickable_CSV_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": "allparts.json",
+							"DatasetName": "AllParts",
+							"SourceName": "Users"
 						}
 					}
 				]
