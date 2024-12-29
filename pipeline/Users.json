@@ -131,9 +131,13 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('Select the config table values').output.value",
+						"type": "Expression"
+					},
 					"activities": [
 						{
-							"name": "Copy Users Data_copy1",
+							"name": "Copy Users Data",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -155,9 +159,6 @@
 											"value": "@concat('key ', activity('Get API key from Azure Key Vault').output.value)",
 											"type": "Expression"
 										}
-									},
-									"paginationRules": {
-										"QueryParameters": ""
 									}
 								},
 								"sink": {
@@ -182,7 +183,10 @@
 											"value": "@activity('Get user token').output.user_token",
 											"type": "Expression"
 										},
-										"entityname": "allparts/"
+										"entityname": {
+											"value": "@item().FileName",
+											"type": "Expression"
+										}
 									}
 								}
 							],
@@ -191,9 +195,18 @@
 									"referenceName": "Rebrickable_CSV_DS",
 									"type": "DatasetReference",
 									"parameters": {
-										"FileName": "allparts.csv",
-										"DatasetName": "AllParts",
-										"SourceName": "Users"
+										"FileName": {
+											"value": "@concat(item().FileName,'.csv')",
+											"type": "Expression"
+										},
+										"DatasetName": {
+											"value": "@item().DatasetName",
+											"type": "Expression"
+										},
+										"SourceName": {
+											"value": "@item().SourceName",
+											"type": "Expression"
+										}
 									}
 								}
 							]
