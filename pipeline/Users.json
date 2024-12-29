@@ -194,7 +194,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"FileName": {
-											"value": "@item().Filename",
+											"value": "@concat(item().Filename, '.json')",
 											"type": "Expression"
 										},
 										"DatasetName": {
