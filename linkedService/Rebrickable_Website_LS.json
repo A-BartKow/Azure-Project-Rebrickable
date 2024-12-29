@@ -1,0 +1,12 @@
+{
+	"name": "Rebrickable_Website_LS",
+	"properties": {
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://rebrickable.com/downloads/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
