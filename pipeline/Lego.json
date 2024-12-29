@@ -80,7 +80,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "Lego_CSV_DS",
+									"referenceName": "Rebrickable_CSV_DS",
 									"type": "DatasetReference",
 									"parameters": {
 										"FileName": {
@@ -117,6 +117,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureTableSource",
+						"azureTableSourceQuery": "https://rebrickabledevadlsgen2.table.core.windows.net/RebrickableConfig()?$filter=SourceName%20eq%20'LEGO'",
 						"azureTableSourceIgnoreTableNotFound": false
 					},
 					"dataset": {
