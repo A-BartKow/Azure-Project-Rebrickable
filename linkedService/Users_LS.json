@@ -4,12 +4,15 @@
 		"parameters": {
 			"user_token": {
 				"type": "string"
+			},
+			"entity_name": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "@{concat('https://rebrickable.com/api/v3/users/',linkedService().user_token,'/')}",
+			"url": "@{concat('https://rebrickable.com/api/v3/users/',linkedService().user_token,'/',linkedService().entity_name,'/')}",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}
