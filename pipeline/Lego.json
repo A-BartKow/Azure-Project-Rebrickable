@@ -119,8 +119,7 @@
 					{
 						"activity": "Copy data for each file from Config table",
 						"dependencyConditions": [
-							"Failed",
-							"Succeeded"
+							"Failed"
 						]
 					}
 				],
