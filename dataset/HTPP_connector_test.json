@@ -1,0 +1,32 @@
+{
+	"name": "HTPP_connector_test",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Rebrickable_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FileName": {
+				"type": "string"
+			},
+			"DatasetName": {
+				"type": "string"
+			},
+			"SourceName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@concat('Rebrickable/', \n        dataset().SourceName,\n        '/', \n        dataset().DatasetName,\n        '/',\n        formatDateTime(utcnow(),'yyyy'), \n        '/', \n        formatDateTime(utcnow(), 'MM'), \n        '/', \n        formatDateTime(utcnow(),'dd'))",
+					"type": "Expression"
+				},
+				"fileSystem": "raw"
+			}
+		}
+	}
+}
