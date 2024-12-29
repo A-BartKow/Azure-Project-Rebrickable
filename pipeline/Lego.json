@@ -44,15 +44,10 @@
 									}
 								},
 								"sink": {
-									"type": "DelimitedTextSink",
+									"type": "BinarySink",
 									"storeSettings": {
 										"type": "AzureBlobFSWriteSettings",
 										"copyBehavior": "FlattenHierarchy"
-									},
-									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".txt"
 									}
 								},
 								"enableStaging": false
@@ -71,11 +66,11 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "Rebrickable_CSV_DS",
+									"referenceName": "Rebrickable_Binary_DS",
 									"type": "DatasetReference",
 									"parameters": {
 										"FileName": {
-											"value": "@concat(item().FileName,'.csv')",
+											"value": "@concat(item().Filename, '.csv')",
 											"type": "Expression"
 										},
 										"DatasetName": {
