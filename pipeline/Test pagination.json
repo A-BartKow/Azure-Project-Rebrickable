@@ -1,6 +1,69 @@
 {
 	"name": "Test pagination",
 	"properties": {
+		"activities": [
+			{
+				"name": "Copy Users Data",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:01.000",
+						"requestMethod": "GET",
+						"additionalHeaders": {
+							"Authorization": {
+								"value": "key dcd65937b3761d5c7a213c871393cd70",
+								"type": "Expression"
+							}
+						},
+						"paginationRules": {
+							"AbsoluteUrl": "$.$.next",
+							"EndCondition:$.next": "Const:null"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "RestResource1",
+						"type": "DatasetReference",
+						"parameters": {
+							"entityname": "colors"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Users_JSON_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": "test.json",
+							"DatasetName": "test",
+							"SourceName": "test"
+						}
+					}
+				]
+			}
+		],
 		"annotations": []
 	}
 }
