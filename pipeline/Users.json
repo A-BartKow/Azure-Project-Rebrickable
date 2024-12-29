@@ -87,79 +87,6 @@
 				}
 			},
 			{
-				"name": "Copy Users Data",
-				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Select the config table values",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "RestSource",
-						"httpRequestTimeout": "00:01:40",
-						"requestInterval": "00.00:00:00.010",
-						"requestMethod": "GET",
-						"additionalHeaders": {
-							"Authorization": {
-								"value": "@concat('key ', activity('Get API key from Azure Key Vault').output.value)",
-								"type": "Expression"
-							}
-						},
-						"paginationRules": {
-							"supportRFC5988": "true"
-						}
-					},
-					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
-						}
-					},
-					"enableStaging": false
-				},
-				"inputs": [
-					{
-						"referenceName": "Users_REST_DS",
-						"type": "DatasetReference",
-						"parameters": {
-							"user_token": {
-								"value": "@activity('Get user token').output.user_token",
-								"type": "Expression"
-							},
-							"entityname": "allparts/"
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "Rebrickable_CSV_DS",
-						"type": "DatasetReference",
-						"parameters": {
-							"FileName": "allparts.csv",
-							"DatasetName": "AllParts",
-							"SourceName": "Users"
-						}
-					}
-				]
-			},
-			{
 				"name": "Select the config table values",
 				"type": "Lookup",
 				"dependsOn": [
@@ -189,6 +116,89 @@
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Select the config table values",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"activities": [
+						{
+							"name": "Copy Users Data_copy1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "RestSource",
+									"httpRequestTimeout": "00:01:40",
+									"requestInterval": "00.00:00:00.010",
+									"requestMethod": "GET",
+									"additionalHeaders": {
+										"Authorization": {
+											"value": "@concat('key ', activity('Get API key from Azure Key Vault').output.value)",
+											"type": "Expression"
+										}
+									},
+									"paginationRules": {
+										"QueryParameters": ""
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "Users_REST_DS",
+									"type": "DatasetReference",
+									"parameters": {
+										"user_token": {
+											"value": "@activity('Get user token').output.user_token",
+											"type": "Expression"
+										},
+										"entityname": "allparts/"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "Rebrickable_CSV_DS",
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": "allparts.csv",
+										"DatasetName": "AllParts",
+										"SourceName": "Users"
+									}
+								}
+							]
+						}
+					]
 				}
 			}
 		],
