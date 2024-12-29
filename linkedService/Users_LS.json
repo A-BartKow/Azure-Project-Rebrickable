@@ -1,6 +1,11 @@
 {
 	"name": "Users_LS",
 	"properties": {
+		"parameters": {
+			"user_token": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
