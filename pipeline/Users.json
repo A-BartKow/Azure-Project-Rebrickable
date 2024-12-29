@@ -187,7 +187,7 @@
 											"type": "Expression"
 										},
 										"entityname": {
-											"value": "@item().FileName",
+											"value": "@concat(item().Filename, '/')",
 											"type": "Expression"
 										}
 									}
