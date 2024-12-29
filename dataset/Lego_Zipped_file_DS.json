@@ -1,5 +1,5 @@
 {
-	"name": "Lego_Zipped_file_HTTP_DS",
+	"name": "Lego_Zipped_file_DS",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Rebrickable_Website_LS",
