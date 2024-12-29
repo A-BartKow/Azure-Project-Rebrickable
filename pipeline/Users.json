@@ -111,6 +111,12 @@
 						"httpRequestTimeout": "00:01:40",
 						"requestInterval": "00.00:00:00.010",
 						"requestMethod": "GET",
+						"additionalHeaders": {
+							"Authorization": {
+								"value": "@concat('key ', activity('Get API key from Azure Key Vault').output.value)",
+								"type": "Expression"
+							}
+						},
 						"paginationRules": {
 							"supportRFC5988": "true"
 						}
@@ -120,7 +126,14 @@
 				"inputs": [
 					{
 						"referenceName": "Users_REST_DS",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"user_token": {
+								"value": "@activity('Get user token').output.user_token",
+								"type": "Expression"
+							},
+							"entityname": "allparts/"
+						}
 					}
 				]
 			}
