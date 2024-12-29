@@ -91,7 +91,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Get user token",
+						"activity": "Select the config table values",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -158,6 +158,38 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "Select the config table values",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Get user token",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureTableSource",
+						"azureTableSourceQuery": "SourceName eq 'Users'",
+						"azureTableSourceIgnoreTableNotFound": false
+					},
+					"dataset": {
+						"referenceName": "Rebrickable_Config_DS",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
 			}
 		],
 		"annotations": []
