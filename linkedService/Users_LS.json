@@ -9,7 +9,7 @@
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "@{concat('https://rebrickable.com/api/v3/users/',linkedService().user_token)}",
+			"url": "@{concat('https://rebrickable.com/api/v3/users/',linkedService().user_token,'/')}",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}
