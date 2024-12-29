@@ -1,5 +1,5 @@
 {
-	"name": "HTPP_connector_test",
+	"name": "Rebrickable_Binary_DS",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Rebrickable_LS",
