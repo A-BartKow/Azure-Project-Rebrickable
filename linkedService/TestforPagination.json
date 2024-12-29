@@ -1,0 +1,12 @@
+{
+	"name": "TestforPagination",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://rebrickable.com/api/v3/lego/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
