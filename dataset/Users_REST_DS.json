@@ -1,0 +1,17 @@
+{
+	"name": "Users_REST_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Users_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"user_token": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}
