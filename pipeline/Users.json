@@ -152,7 +152,7 @@
 						"referenceName": "Rebrickable_CSV_DS",
 						"type": "DatasetReference",
 						"parameters": {
-							"FileName": "allparts.json",
+							"FileName": "allparts.csv",
 							"DatasetName": "AllParts",
 							"SourceName": "Users"
 						}
