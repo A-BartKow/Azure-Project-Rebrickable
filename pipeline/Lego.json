@@ -119,7 +119,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureTableSource",
-						"azureTableSourceQuery": "Select * from RebrickableConfig where SourceName = 'LEGO'",
+						"azureTableSourceQuery": "SourceName eq 'LEGO'",
 						"azureTableSourceIgnoreTableNotFound": false
 					},
 					"dataset": {
