@@ -89,9 +89,11 @@
 			{
 				"name": "Select the config table values",
 				"type": "Lookup",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
-						"activity": "Get user token",
+						"activity": "Get user token_copy1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -121,6 +123,8 @@
 			{
 				"name": "ForEach1",
 				"type": "ForEach",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Select the config table values",
@@ -147,7 +151,6 @@
 								"secureOutput": false,
 								"secureInput": false
 							},
-							"userProperties": [],
 							"typeProperties": {
 								"source": {
 									"type": "RestSource",
@@ -212,6 +215,37 @@
 							]
 						}
 					]
+				}
+			},
+			{
+				"name": "Get user token_copy1",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Get user token",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": true
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"headers": {
+						"Authorization": {
+							"value": "@concat('key ',activity('Get API key from Azure Key Vault').output.value)",
+							"type": "Expression"
+						}
+					},
+					"url": "https://rebrickable.com/api/v3/users/a00da8ad593152cbada306311fe35e1289eaec5ccea364b67ab6bacfe5aa8b34/minifigs/",
+					"body": ""
 				}
 			}
 		],
