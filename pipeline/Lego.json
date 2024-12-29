@@ -5,6 +5,8 @@
 			{
 				"name": "Copy data for each file from Config table",
 				"type": "ForEach",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Select the config table values",
@@ -117,7 +119,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureTableSource",
-						"azureTableSourceQuery": "https://rebrickabledevadlsgen2.table.core.windows.net/RebrickableConfig()?$filter=SourceName%20eq%20'LEGO'",
+						"azureTableSourceQuery": "Select * from RebrickableConfig where SourceName = 'LEGO'",
 						"azureTableSourceIgnoreTableNotFound": false
 					},
 					"dataset": {
