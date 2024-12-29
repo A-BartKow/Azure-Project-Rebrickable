@@ -1,5 +1,5 @@
 {
-	"name": "Rebrickable_Binary_DS",
+	"name": "Lego_Binary_DS",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Rebrickable_LS",
