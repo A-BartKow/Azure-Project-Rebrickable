@@ -3,7 +3,13 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Users_LS",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"user_token": {
+					"value": "@dataset().user_token",
+					"type": "Expression"
+				}
+			}
 		},
 		"parameters": {
 			"user_token": {
