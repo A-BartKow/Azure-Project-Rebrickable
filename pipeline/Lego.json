@@ -46,8 +46,7 @@
 								"sink": {
 									"type": "BinarySink",
 									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings",
-										"copyBehavior": "FlattenHierarchy"
+										"type": "AzureBlobFSWriteSettings"
 									}
 								},
 								"enableStaging": false
@@ -59,6 +58,26 @@
 									"parameters": {
 										"Filename": {
 											"value": "@concat(item().Filename, '.csv.gz')",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "Lego_Binary_DS",
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@concat(item().Filename, '.csv' )",
+											"type": "Expression"
+										},
+										"DatasetName": {
+											"value": "@item().DatasetName",
+											"type": "Expression"
+										},
+										"SourceName": {
+											"value": "@item().SourceName",
 											"type": "Expression"
 										}
 									}
