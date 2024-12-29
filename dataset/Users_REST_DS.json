@@ -8,6 +8,9 @@
 		"parameters": {
 			"user_token": {
 				"type": "string"
+			},
+			"entityname": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
