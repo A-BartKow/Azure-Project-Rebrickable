@@ -1,0 +1,66 @@
+{
+	"name": "HTTP connector",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "FlattenHierarchy"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Lego_Zipped_file_HTTP_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"Filename": "themes.csv.gz"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Rebrickable_CSV_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": "themes.csv",
+							"DatasetName": "Themes",
+							"SourceName": "LEGO"
+						}
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
