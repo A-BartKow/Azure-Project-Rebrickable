@@ -158,8 +158,7 @@
 										"Authorization": {
 											"value": "@concat('key ', activity('Get API key from Azure Key Vault').output.value)",
 											"type": "Expression"
-										},
-										"Content-type": "application/json"
+										}
 									}
 								},
 								"sink": {
