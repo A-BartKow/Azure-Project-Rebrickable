@@ -27,15 +27,10 @@
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
+						"type": "BinarySink",
 						"storeSettings": {
 							"type": "AzureBlobFSWriteSettings",
 							"copyBehavior": "FlattenHierarchy"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
 						}
 					},
 					"enableStaging": false
@@ -51,7 +46,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "Rebrickable_CSV_DS",
+						"referenceName": "HTPP_connector_test",
 						"type": "DatasetReference",
 						"parameters": {
 							"FileName": "themes.csv",
