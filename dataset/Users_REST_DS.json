@@ -23,7 +23,7 @@
 		"type": "RestResource",
 		"typeProperties": {
 			"relativeUrl": {
-				"value": "@dataset().entityname",
+				"value": "@concat(dataset().entityname,'/')",
 				"type": "Expression"
 			}
 		},
