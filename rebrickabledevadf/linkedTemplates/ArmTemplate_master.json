@@ -1,0 +1,77 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "rebrickabledevadf"
+		},
+		"Rebrickable_AKV_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://rebrickabledevakv.vault.azure.net/"
+		},
+		"Rebrickable_Config_LS_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://rebrickabledevadlsgen2.table.core.windows.net/"
+		},
+		"Rebrickable_LS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://rebrickabledevadlsgen2.dfs.core.windows.net/"
+		},
+		"Rebrickable_Website_LS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://cdn.rebrickable.com/media/downloads/"
+		},
+		"Users_LS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{concat('https://rebrickable.com/api/v3/users/',linkedService().user_token,'/')}"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "rebrickabledevadf_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"Rebrickable_AKV_properties_typeProperties_baseUrl": {
+						"value": "[parameters('Rebrickable_AKV_properties_typeProperties_baseUrl')]"
+					},
+					"Rebrickable_Config_LS_properties_typeProperties_serviceEndpoint": {
+						"value": "[parameters('Rebrickable_Config_LS_properties_typeProperties_serviceEndpoint')]"
+					},
+					"Rebrickable_LS_properties_typeProperties_url": {
+						"value": "[parameters('Rebrickable_LS_properties_typeProperties_url')]"
+					},
+					"Rebrickable_Website_LS_properties_typeProperties_url": {
+						"value": "[parameters('Rebrickable_Website_LS_properties_typeProperties_url')]"
+					},
+					"Users_LS_properties_typeProperties_url": {
+						"value": "[parameters('Users_LS_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

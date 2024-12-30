@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "rebrickabledevadf"
+		},
+		"Rebrickable_AKV_properties_typeProperties_baseUrl": {
+			"value": "https://rebrickabledevakv.vault.azure.net/"
+		},
+		"Rebrickable_Config_LS_properties_typeProperties_serviceEndpoint": {
+			"value": "https://rebrickabledevadlsgen2.table.core.windows.net/"
+		},
+		"Rebrickable_LS_properties_typeProperties_url": {
+			"value": "https://rebrickabledevadlsgen2.dfs.core.windows.net/"
+		},
+		"Rebrickable_Website_LS_properties_typeProperties_url": {
+			"value": "https://cdn.rebrickable.com/media/downloads/"
+		},
+		"Users_LS_properties_typeProperties_url": {
+			"value": "@{concat('https://rebrickable.com/api/v3/users/',linkedService().user_token,'/')}"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
