@@ -1,0 +1,32 @@
+{
+	"name": "Users_REST_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Users_LS",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"user_token": {
+					"value": "@dataset().user_token",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"user_token": {
+				"type": "string"
+			},
+			"entityname": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "@dataset().entityname",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	}
+}

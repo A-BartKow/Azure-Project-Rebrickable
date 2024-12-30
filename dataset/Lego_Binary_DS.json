@@ -1,0 +1,36 @@
+{
+	"name": "Lego_Binary_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Rebrickable_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FileName": {
+				"type": "string"
+			},
+			"DatasetName": {
+				"type": "string"
+			},
+			"SourceName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('Rebrickable/', \n        dataset().SourceName,\n        '/', \n        dataset().DatasetName,\n        '/',\n        formatDateTime(utcnow(),'yyyy'), \n        '/', \n        formatDateTime(utcnow(), 'MM'), \n        '/', \n        formatDateTime(utcnow(),'dd'))",
+					"type": "Expression"
+				},
+				"fileSystem": "raw"
+			}
+		}
+	}
+}

@@ -1,0 +1,10 @@
+{
+	"name": "Rebrickable_Config_LS",
+	"properties": {
+		"annotations": [],
+		"type": "AzureTableStorage",
+		"typeProperties": {
+			"serviceEndpoint": "https://rebrickabledevadlsgen2.table.core.windows.net/"
+		}
+	}
+}

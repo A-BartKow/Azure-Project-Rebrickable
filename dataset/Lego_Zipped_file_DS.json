@@ -1,0 +1,28 @@
+{
+	"name": "Lego_Zipped_file_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Rebrickable_Website_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().Filename",
+					"type": "Expression"
+				}
+			},
+			"compression": {
+				"type": "gzip"
+			}
+		}
+	}
+}

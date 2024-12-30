@@ -1,0 +1,15 @@
+{
+	"name": "Rebrickable_Config_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Rebrickable_Config_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "RebrickableConfig"
+		}
+	}
+}

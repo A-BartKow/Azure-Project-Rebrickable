@@ -1,0 +1,256 @@
+{
+	"name": "Users",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get User password from Azure Key Vault",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://rebrickabledevakv.vault.azure.net/secrets/Rebrickable-User-Password?api-version=7.4",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://vault.azure.net/"
+					}
+				}
+			},
+			{
+				"name": "Get user token",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Get API key from Azure Key Vault",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": true
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"headers": {
+						"Authorization": {
+							"value": "@concat('key ',activity('Get API key from Azure Key Vault').output.value)",
+							"type": "Expression"
+						},
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					"url": "https://rebrickable.com/api/v3/users/_token/",
+					"body": {
+						"value": "username=agaka1993&password=@{activity('Get User password from Azure Key Vault').output.value}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Get API key from Azure Key Vault",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Get User password from Azure Key Vault",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://rebrickabledevakv.vault.azure.net/secrets/Rebrickable-API-Key?api-version=7.4",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://vault.azure.net/"
+					}
+				}
+			},
+			{
+				"name": "Select the config table values",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Get user token",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureTableSource",
+						"azureTableSourceQuery": "SourceName eq 'Users'",
+						"azureTableSourceIgnoreTableNotFound": false
+					},
+					"dataset": {
+						"referenceName": "Rebrickable_Config_DS",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Select the config table values",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Select the config table values').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy Users Data",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "RestSource",
+									"httpRequestTimeout": "00:01:40",
+									"requestInterval": "00.00:00:01.000",
+									"requestMethod": "GET",
+									"additionalHeaders": {
+										"Authorization": {
+											"value": "@concat('key ', activity('Get API key from Azure Key Vault').output.value)",
+											"type": "Expression"
+										}
+									},
+									"paginationRules": {
+										"AbsoluteUrl": "$.next",
+										"EndCondition:$.next": "Const:null"
+									}
+								},
+								"sink": {
+									"type": "JsonSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "JsonWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "Users_REST_DS",
+									"type": "DatasetReference",
+									"parameters": {
+										"user_token": {
+											"value": "@activity('Get user token').output.user_token",
+											"type": "Expression"
+										},
+										"entityname": {
+											"value": "@concat(item().Filename, '/')",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "Users_JSON_DS",
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@concat(item().Filename, '.json')",
+											"type": "Expression"
+										},
+										"DatasetName": {
+											"value": "@item().DatasetName",
+											"type": "Expression"
+										},
+										"SourceName": {
+											"value": "@item().SourceName",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Send message on failure",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "ForEach1",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://prod-55.northeurope.logic.azure.com:443/workflows/19604fffe70544c79d68ce5208a74e2a/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=vQyauRZ3s7bQ4F-xlKOO6aYuEK7nxaW36WQGXXzblE4",
+					"body": {
+						"value": "{\n    \"message\" : \"This is a custom dynamic message from your pipeline with run ID @{pipeline().RunId}.\",\n    \"dataFactoryName\" : \"@{pipeline().DataFactory}\", \n    \"pipelineName\" : \"@{pipeline().Pipeline}\", \n    \"receiver\" : \"@{variables('reciever')}\"\n   }",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"reciever": {
+				"type": "String",
+				"defaultValue": "agnieszka.a.kowalczyk-bartkowiak@gsk.com"
+			}
+		},
+		"annotations": []
+	}
+}
