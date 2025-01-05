@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"content": {
+			"query": "CREATE USER [Rebrickable-Dev-Databricks] FROM EXTERNAL PROVIDER;\nGO\nEXEC sp_addrolemember db_owner, [Rebrickable-Dev-Databricks];\nGRANT ADMINISTER DATABASE BULK OPERATIONS TO [Rebrickable-Dev-Databricks]\n\nGRANT CREATE TABLE TO [Rebrickable-Dev-Databricks]\nGRANT ALTER ON SCHEMA ::dbo TO [Rebrickable-Dev-Databricks]\n\nCREATE TABLE OwnedSets\n(\n    set_num VARCHAR(255),\n    Profile_ID INT,\n    Date DATE,\n    Price DECIMAL(10,2)\n)\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Rebrickabledevsqldw",
+				"poolName": "Rebrickabledevsqldw"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
