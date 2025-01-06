@@ -2,7 +2,7 @@
 	"name": "SQL script 1",
 	"properties": {
 		"content": {
-			"query": "CREATE USER [Rebrickable-Dev-Databricks] FROM EXTERNAL PROVIDER;\nGO\nEXEC sp_addrolemember db_owner, [Rebrickable-Dev-Databricks];\nGRANT ADMINISTER DATABASE BULK OPERATIONS TO [Rebrickable-Dev-Databricks]\n\nGRANT CREATE TABLE TO [Rebrickable-Dev-Databricks]\nGRANT ALTER ON SCHEMA ::dbo TO [Rebrickable-Dev-Databricks]\n\nCREATE TABLE OwnedSets\n(\n    set_num VARCHAR(255),\n    Profile_ID INT,\n    Date DATE,\n    Price DECIMAL(10,2)\n)\n",
+			"query": "--CREATE USER [Rebrickable-Dev-Databricks] FROM EXTERNAL PROVIDER;\n--GO\n--EXEC sp_addrolemember db_owner, [Rebrickable-Dev-Databricks];\n--GRANT ADMINISTER DATABASE BULK OPERATIONS TO [Rebrickable-Dev-Databricks]\n\n--GRANT CREATE TABLE TO [Rebrickable-Dev-Databricks]\n--GRANT ALTER ON SCHEMA ::dbo TO [Rebrickable-Dev-Databricks]\n\n--CREATE TABLE OwnedSets\n--(\n    --set_num VARCHAR(255),\n    --Profile_ID INT,\n    --Date DATE,\n    --Price DECIMAL(10,2)\n--)\n\n--CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'Rebrickable1234'\n\n--select * from dbo.OwnedSets",
 			"metadata": {
 				"language": "sql"
 			},
