@@ -1,0 +1,17 @@
+{
+	"name": "Rebrickable - query data using Serverless SQL Pool",
+	"properties": {
+		"content": {
+			"query": "-- This is auto-generated code\nCREATE SCHEMA delta\nCREATE VIEW V_OwnedSets AS SELECT *\nFROM\n    OPENROWSET(\n        BULK 'https://rebrickabledevadlsgen2.dfs.core.windows.net/cleansed/Rebrickable/OwnedSets',\n        FORMAT = 'DELTA'\n    ) AS [V_OwnedSets]\n\nCREATE VIEW V_Sets AS SELECT *\nFROM\n    OPENROWSET(\n        BULK 'https://rebrickabledevadlsgen2.dfs.core.windows.net/cleansed/Rebrickable/Sets',\n        FORMAT = 'DELTA'\n    ) AS [V_Sets]\n\nCREATE VIEW V_Date AS SELECT *\nFROM\n    OPENROWSET(\n        BULK 'https://rebrickabledevadlsgen2.dfs.core.windows.net/cleansed/Rebrickable/Date',\n        FORMAT = 'DELTA'\n    ) AS [V_Date]\n\nCREATE VIEW V_Profile AS SELECT *\nFROM\n    OPENROWSET(\n        BULK 'https://rebrickabledevadlsgen2.dfs.core.windows.net/cleansed/Rebrickable/Profile',\n        FORMAT = 'DELTA'\n    ) AS [V_Profile]\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
