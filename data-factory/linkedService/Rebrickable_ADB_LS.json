@@ -1,0 +1,20 @@
+{
+	"name": "Rebrickable_ADB_LS",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-137236703811405.5.azuredatabricks.net",
+			"authentication": "MSI",
+			"workspaceResourceId": "/subscriptions/03b6d612-6de5-4a20-9593-97c0994bb508/resourceGroups/AgaBartKow_Rebrickable_Dev_RG/providers/Microsoft.Databricks/workspaces/rebrickabledevdatabricks",
+			"newClusterNodeType": "Standard_DS3_v2",
+			"newClusterNumOfWorker": "1",
+			"newClusterSparkEnvVars": {
+				"PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+			},
+			"newClusterVersion": "15.4.x-scala2.12",
+			"clusterOption": "Fixed",
+			"newClusterInitScripts": []
+		}
+	}
+}

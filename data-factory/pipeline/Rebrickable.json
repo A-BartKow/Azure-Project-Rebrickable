@@ -1,0 +1,101 @@
+{
+	"name": "Rebrickable",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute LEGO",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Lego",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute Users",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute LEGO",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Users",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute Rebrickable - Incremental load",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Execute Users",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/Azure-Rebrickable-Project-Databricks/rebrickable-notebooks/Rebrickable - incremental load"
+				},
+				"linkedServiceName": {
+					"referenceName": "Rebrickable_ADB_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Execute Rebrickable - loading data to SQL Pool",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Execute Rebrickable - Incremental load",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/Azure-Rebrickable-Project-Databricks/rebrickable-notebooks/Rebrickable - loading data to Dedicated SQL Pool"
+				},
+				"linkedServiceName": {
+					"referenceName": "Rebrickable_ADB_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": []
+	}
+}

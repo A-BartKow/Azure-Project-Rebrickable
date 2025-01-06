@@ -1,0 +1,17 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+
+- stage: BUILD
+  jobs:
+  - template: adf-build-job.yml
+    parameters:
+      subscriptionId: 03b6d612-6de5-4a20-9593-97c0994bb508
+      resourceGroupName: AgaBartKow_Rebrickable_Dev_RG
+      dataFactoryName: rebrickabledevadf
+      repoRootFolder: /data-factory/
+      packageJsonFolder: /devops/
