@@ -19,7 +19,7 @@ Following Azure services has been created for ingestion phase:
 ![image](https://github.com/user-attachments/assets/f217b033-db15-468a-b759-95f555383b62)
 - Azure Storage Account - `rebrickabledevadlsgen2` - with hierachical structure enabled and LRS type of Redundancy
 - Azure Data Factory - `rebrickabledevadf` - the respository for ADF is avaliable in /data-factory/ folder in this repository
-- Azure Key Vault - 'rebrickabledevakv' - with permission model RBAC enabled to keep all the secrets and passwords in secure place
+- Azure Key Vault - `rebrickabledevakv` - with permission model RBAC enabled to keep all the secrets and passwords in secure place
 
 #### Azure Data Factory content
 Following Azure Linked Services has been created in Azure Data Factory:
