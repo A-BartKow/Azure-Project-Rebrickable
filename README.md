@@ -35,11 +35,11 @@ To make solution the most configurable and flexible in terms of adding the news 
 #### Azure Data Lake Storage structure
 The following structure for data ingestion has been designed:
 - raw - container which is going to keep the raw, unzipped data as is from source
--- Rebrickable - name of the project
---- [SourceName] - either 'Lego' or 'Users'
----- [DatasetName] - lists of datasets is defined in `RebrickableConfig` table
------ year/month/day - date of ingestion generated dynamically during pipeline execution
------- filname with extension
+- Rebrickable - name of the project
+- [SourceName] - either 'Lego' or 'Users'
+- [DatasetName] - lists of datasets is defined in `RebrickableConfig` table
+- year/month/day - date of ingestion generated dynamically during pipeline execution
+- filename with extension
 
 
 ### Security controls for ingestion phase
