@@ -25,4 +25,14 @@ Following Azure services has been created for ingestion phase:
 Following Azure Linked Services has been created in Azure Data Factory:
 ![image](https://github.com/user-attachments/assets/3a95600a-99a8-4684-8639-634b57067b7f)
 
+#### Azure Data Factory logic
+To make solution the most configurable and flexible in terms of adding the news datasets to ingest without doing the changes in pipeline the Configuration table `RebrickableConfig` has been created for adding/removing the dataset for ingestion phase:
+![image](https://github.com/user-attachments/assets/2fa4e3e2-3909-4ab2-951f-4c3a4a696f6c)
+- `SourceName` - distingush between two different formats of data
+- `DatasetName` - the entity from LEGO model
+- `FileName` - name of the file to which the data is saved on Azure Blob Storage or name of the entity which is used in API call to get the entity data
+
+
+
+
 
