@@ -28,10 +28,16 @@ Following Azure Linked Services has been created in Azure Data Factory:
 #### Azure Data Factory logic
 To make solution the most configurable and flexible in terms of adding the news datasets to ingest without doing the changes in pipeline the Configuration table `RebrickableConfig` has been created for adding/removing the dataset for ingestion phase:
 ![image](https://github.com/user-attachments/assets/2fa4e3e2-3909-4ab2-951f-4c3a4a696f6c)
-- `SourceName` - distingush between two different formats of data
-- `DatasetName` - the entity from LEGO model
-- `FileName` - name of the file to which the data is saved on Azure Blob Storage or name of the entity which is used in API call to get the entity data
+- `SourceName` - distinguish between two different formats of data
+- `DatasetName` - the name of entity from Rebrickable model
+- `FileName` - name of the file to which the data is saved on Azure Blob Storage/read from Web page or name of the entity which is used in API call to get the entity data
 
+#### Security controls for ingestion phase
+1. Azure Key Vault GET method is used to retirive the secrets/tokens from Key Vault and the content is hidden behind enabled Secure output/input function on Web activity.
+2. All the Linked Services have been created with Managed Identity authentication type
+3. Following MS Entra groups have been created with minimum least privilege to grant the proper permissions for MIs:
+![image](https://github.com/user-attachments/assets/75963869-7423-4ec6-a23a-90e095403696)
+4. Azure Logic App has been created for sending an email to Gmail provider when copy of any of the datasets fails
 
 
 
