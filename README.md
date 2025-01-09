@@ -32,13 +32,25 @@ To make solution the most configurable and flexible in terms of adding the news 
 - `DatasetName` - the name of entity from Rebrickable model
 - `FileName` - name of the file to which the data is saved on Azure Blob Storage/read from Web page or name of the entity which is used in API call to get the entity data
 
-#### Security controls for ingestion phase
+#### Azure Data Lake Storage structure
+The following structure for data ingestion has been designed:
+- raw - container which is going to keep the raw, unzipped data as is from source
+-- Rebrickable - name of the project
+--- [SourceName] - either 'Lego' or 'Users'
+---- [DatasetName] - lists of datasets is defined in `RebrickableConfig` table
+----- year/month/day - date of ingestion generated dynamically during pipeline execution
+------ filname with extension
+
+
+### Security controls for ingestion phase
 1. Azure Key Vault GET method is used to retirive the secrets/tokens from Key Vault and the content is hidden behind enabled Secure output/input function on Web activity.
 2. All the Linked Services have been created with Managed Identity authentication type
 3. Following MS Entra groups have been created with minimum least privilege to grant the proper permissions for MIs:
 ![image](https://github.com/user-attachments/assets/75963869-7423-4ec6-a23a-90e095403696)
 4. Azure Logic App has been created for sending an email to Gmail provider when copy of any of the datasets fails
 
+### Additional features
+Lifecycle management policies has been defined and enabled for Azure Blob Storage
 
 
 
