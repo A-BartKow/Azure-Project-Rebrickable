@@ -136,6 +136,7 @@ The whole SQL script for desiging `Rebrickabledevsqldw` is published in /synapse
 ### Querying data in SQL Server Management Studio
 Following screenshot is showing the database content of `Rebrickabledevsqldw` which is avaliable for querying the data
 ![image](https://github.com/user-attachments/assets/7c5ed73e-69ea-479d-a5b4-0e413f64655b)
+
 The data have been queried
 ![image](https://github.com/user-attachments/assets/ce973899-bdb7-4b84-9b64-3f28c72bdb10)
 
