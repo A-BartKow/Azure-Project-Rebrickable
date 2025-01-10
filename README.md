@@ -94,7 +94,7 @@ The following strucutre of containers has been designed for transforming activit
 2. `cleansed` - data taken from curated container after cleaning and transformation saved as external table as a dataset named folder without any partitioning
 
 The following notebooks have been developed and used in transformation phase 
-(all notebooks are available in [Azure Rebrickable Project Databricks](https://github.com/A-BartKow/Azure-Rebrickable-Project-Databricks repository))
+(all notebooks are available in [Azure Rebrickable Project Databricks](https://github.com/A-BartKow/Azure-Rebrickable-Project-Databricks) repository)
 1. `Rebrickable - design and full load` - notebook for doing the initial load to curated container, design and register the external tables for Dimensions and Facts tables
 2. `Rebrickable - incremental load` - notebook used for daily load of new data - saving new files as delta in curated container and updating the external tables with new data
 
