@@ -76,20 +76,35 @@ The cluster was created with:
 
 ##### Azure Databricks authentication with ADLS Gen2
 To be able to connect to Rebrickabledevadlsgen2 ADLS the Secret Scope + Service Principal method was implemented.
-Since the already created Azure Key Vault `rebrickabledevakv` has the RBAC permission model, the new AKV was created with `Vault access policy` model to be able to implement chosen authentication type.
+Since already created Azure Key Vault `rebrickabledevakv` has the RBAC permission model, the new AKV was created with `Vault access policy` model to be able to implement chosen authentication type.
 1. Service Principal for Databricks `Rebrikcable-Dev-Databricks` has been created and added to Storage Blob Data Contributor Entra group:
 ![image](https://github.com/user-attachments/assets/1c1673ec-1da2-4324-bd89-d76ac714b1b5)
 2. Databricks Service Principal `Databricks-Dev-Rebrickable` secret has been placed in `rebrickabledevakvap` Azure Key Vault.
-3. Use Databricks Service #secrets/createScope and provide the properities for `rebrickabledevakvap` Azure Key Vault.
+3. Databricks Service #secrets/createScope was used and and provided the properities for `rebrickabledevakvap` Azure Key Vault.
+
+##### Azure Databricks external table registration
+Folowing configuration has been done to set up the external table in `cleansed` container:
+1. Access Connector for Azure Databricks created in Azure Portal with Managed Identity option set as On.
+2. Created new Storage Credential in Databricks Unity Catalog with Access Connector Managed Identity
+3. Created an external location for cleansed container.
 
 ##### Azure Data Lake Storage container structure and transform phase logic
 The following strucutre of containers has been designed for transforming activities:
-1. curated - data taken from raw container and saved as delta format without any transformations
-2. cleansed - data taken from curated container after cleaning and transformation saved as External Table in dataset folder without any partitioning
+1. `curated` - data taken from raw container and saved as delta format without any transformations
+2. `cleansed` - data taken from curated container after cleaning and transformation saved as external table as a dataset named folder without any partitioning
 
-The following notebooks has been developed and used in transformation phase (all notebooks are available in repository)
-1. Rebrickable - design and full load - notebook for doing the initial load to curated container, design and register the external tables for Dimensions and facts
-2. Rebrickable - incremental load - notebook used for daily load of new data - saving new files as delta in curated container and updating the external tables with new data
+The following notebooks have been developed and used in transformation phase 
+(all notebooks are available in [Azure Rebrickable Project Databricks](https://github.com/A-BartKow/Azure-Rebrickable-Project-Databricks repository))
+1. `Rebrickable - design and full load` - notebook for doing the initial load to curated container, design and register the external tables for Dimensions and Facts tables
+2. `Rebrickable - incremental load` - notebook used for daily load of new data - saving new files as delta in curated container and updating the external tables with new data
+
+
+
+
+
+
+
+##### Azure Data Factory orchestration for daily loads
 
 
 
