@@ -14,7 +14,7 @@ The are two different data sources which have been used in this project:
 1. .csv files containing all master data for entities - further referred as `LEGO` data source
 2. .json files recieved from calling Rebrickable API containing user's specific LEGO collections - further referred as `Users` data source.
 
-#### Azure services used in this phase
+#### Azure services created for this phase
 Following Azure services has been created for ingestion phase:
 ![image](https://github.com/user-attachments/assets/f217b033-db15-468a-b759-95f555383b62)
 - Azure Storage Account - `rebrickabledevadlsgen2` - with hierachical structure enabled and LRS type of Redundancy
@@ -60,7 +60,7 @@ The aim of the transform phase was to developed the Star schema small Data Mart 
 3. Sets - dimension table with all the avaliable lego sets data in Rebrickable database
 4. Owned Sets - fact table containing all sets which are in particular's users collection with the date when the set was acquire by user
 
-#### Azure services used in this phase
+#### Azure services created for this phase
 Following Azure services has been created for ingestion phase:
 ![image](https://github.com/user-attachments/assets/d2d7701e-a68f-4872-b13b-0119e436dea7)
 - Azure Databricks Service workspace - `rebrickabledevdatabricks` - as a Trial 14 days free pricing tier
@@ -74,33 +74,54 @@ The cluster was created with:
 - node type `Standard_DS3_v2`
 - terminate after 10 minutes of activity
 
+![image](https://github.com/user-attachments/assets/7a67ac94-b406-496d-8748-5ba7bb368ce6)
+
+
 ##### Azure Databricks authentication with ADLS Gen2
 To be able to connect to Rebrickabledevadlsgen2 ADLS the Secret Scope + Service Principal method was implemented.
 Since already created Azure Key Vault `rebrickabledevakv` has the RBAC permission model, the new AKV was created with `Vault access policy` model to be able to implement chosen authentication type.
 1. Service Principal for Databricks `Rebrikcable-Dev-Databricks` has been created and added to Storage Blob Data Contributor Entra group:
 ![image](https://github.com/user-attachments/assets/1c1673ec-1da2-4324-bd89-d76ac714b1b5)
 2. Databricks Service Principal `Databricks-Dev-Rebrickable` secret has been placed in `rebrickabledevakvap` Azure Key Vault.
+![image](https://github.com/user-attachments/assets/82de51b2-fcf5-402f-ad9c-81fed2d4cf04) 
 3. Databricks Service #secrets/createScope was used and and provided the properities for `rebrickabledevakvap` Azure Key Vault.
+![image](https://github.com/user-attachments/assets/53e76de9-27d2-4698-9aa7-66d1064242a1)
 
 ##### Azure Databricks external table registration
 Folowing configuration has been done to set up the external table in `cleansed` container:
-1. Access Connector for Azure Databricks created in Azure Portal with Managed Identity option set as On.
-2. Created new Storage Credential in Databricks Unity Catalog with Access Connector Managed Identity
+1. Access Connector for Azure Databricks `Rebrickabledevadbconnector` created in Azure Portal with Managed Identity option set as On.
+   ![image](https://github.com/user-attachments/assets/733f3fb3-7049-4ffd-8dce-dc0aa0c1c045)
+2. Created new Storage Credential in Databricks Unity Catalog with Access Connector `Rebrickabledevadbconnector` Managed Identity
+   ![image](https://github.com/user-attachments/assets/1151f102-8b02-4ffb-9d1e-6ced2d00b57d)
 3. Created an external location for cleansed container.
+   ![image](https://github.com/user-attachments/assets/b91d045e-cc0c-40c2-8385-1244454d5def)
 
 ##### Azure Data Lake Storage container structure and transform phase logic
 The following strucutre of containers has been designed for transforming activities:
 1. `curated` - data taken from raw container and saved as delta format without any transformations
 2. `cleansed` - data taken from curated container after cleaning and transformation saved as external table as a dataset named folder without any partitioning
+![image](https://github.com/user-attachments/assets/90524b2f-1745-49a0-bbff-415166b17bdd)
+
 
 The following notebooks have been developed and used in transformation phase 
 (all notebooks are available in [Azure Rebrickable Project Databricks](https://github.com/A-BartKow/Azure-Rebrickable-Project-Databricks) repository)
 1. `Rebrickable - design and full load` - notebook for doing the initial load to curated container, design and register the external tables for Dimensions and Facts tables
 2. `Rebrickable - incremental load` - notebook used for daily load of new data - saving new files as delta in curated container and updating the external tables with new data
 
+## Serve Phase
+The aim of that phase was to load the external data tables located on `rebrickabledevadlsgen2` as simple SQL tables stored in SQL dedicated pool for allowing the end user access it from SQL Server Management Studio software.
 
+### Azure services created for this phase
+1. Azure Synapse Analytics workspace - `rebrickabledevsynapse`
+2. Dedicated SQL pool - 'Rebrickabledevsqldw` - dedicated sql pool created in `rebrickabledevsynapse` Azure Synapase Analytics services to which the data will be loaded
+![image](https://github.com/user-attachments/assets/1afa6817-ec10-421e-ba0f-25dc353c37c6)
 
+#### Copying data from ADLS Gen2 to Dedicated SQL Pool
+Within the different various methods for copying the data to SQL dedicated pool Azure Databricks notebook with `spark.write.format('sqldw')` method was used.
+The reason for using that method is the data written as delta format in ADLS Gen 2 `cleasned@rebrickabledevadlsgen2` container which will be used as a source.
+Copy methods as PolyBase, COPY INTO or ADF/Synapse pipeline with Copy activity are not avaliable for delta format at the moment.
 
+The Databricks notebook `Rebrickable - loading data to Dedicated SQL Pool` with logic for copying the data to SQL dedicated pool 'Rebrickabledevsqldw` is avaliable in [Azure Rebrickable Project Databricks](https://github.com/A-BartKow/Azure-Rebrickable-Project-Databricks) repository
 
 
 
