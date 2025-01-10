@@ -54,7 +54,7 @@ The following structure for data ingestion has been designed:
 Lifecycle management policies has been defined and enabled for Azure Blob Storage
 
 ## Transform phase
-The aim of the transform phase was to developed the Star schema small Data Mart solution. The data mart is build with below tables:
+The aim of the transform phase was to developed the Star schema small datamart solution. The data mart is built with below tables:
 
 1. Date - dimension table with dates
 2. Profile - dimension table with registered user's profile id
@@ -62,7 +62,7 @@ The aim of the transform phase was to developed the Star schema small Data Mart 
 4. Owned Sets - fact table containing all sets which are in particular's users collection with the date when the set was acquire by user
 
 #### Azure services created for this phase
-Following Azure services has been created for ingestion phase:
+Following Azure services have been created for transform phase:
 ![image](https://github.com/user-attachments/assets/d2d7701e-a68f-4872-b13b-0119e436dea7)
 - Azure Databricks Service workspace - `rebrickabledevdatabricks` - as a Trial 14 days free pricing tier
 - Azure Key Vault  - `rebrickabledevakvap` - with Vault access policy permission model
@@ -79,7 +79,7 @@ The cluster was created with:
 
 
 ##### Azure Databricks authentication with ADLS Gen2
-To be able to connect to Rebrickabledevadlsgen2 ADLS the Secret Scope + Service Principal method was implemented.
+To be able to connect to `Rebrickabledevadlsgen2` ADLS the Secret Scope + Service Principal method was implemented.
 Since already created Azure Key Vault `rebrickabledevakv` has the RBAC permission model, the new AKV was created with `Vault access policy` model to be able to implement chosen authentication type.
 1. Service Principal for Databricks `Rebrikcable-Dev-Databricks` has been created and added to Storage Blob Data Contributor Entra group:
 ![image](https://github.com/user-attachments/assets/1c1673ec-1da2-4324-bd89-d76ac714b1b5)
@@ -121,7 +121,7 @@ The aim of that phase was to load the external data tables located on `rebrickab
 Within the different various methods for copying the data to SQL dedicated pool Azure Databricks notebook with `spark.write.format('sqldw')` method was used.
 The reason for using that method is the data written as delta format in ADLS Gen 2 `cleasned@rebrickabledevadlsgen2` container which will be used as a source.
 
-Copy methods as PolyBase, COPY INTO or ADF/Synapse pipeline with Copy activity are not avaliable for delta format at the moment.
+Copy methods as PolyBase, COPY INTO or ADF/Synapse pipeline with Copy activity are not avaliable for copying the delta format at the moment.
 
 The Databricks notebook `Rebrickable - loading data to Dedicated SQL Pool` with logic for copying the data to SQL dedicated pool 'Rebrickabledevsqldw` is avaliable in [Azure Rebrickable Project Databricks](https://github.com/A-BartKow/Azure-Rebrickable-Project-Databricks) repository.
 
@@ -132,13 +132,14 @@ The tables equivalent to external tables registered on `rebrickabledevadlsgen2` 
 3. Sets - dimension table with heap index and replicate distribution
 4. Owned Sets - fact table with clustered columnstore index and hash distribution on users' profile id
 
-The whole SQL script for desiging `Rebrickabledevsqldw` is published in /synapse/sqlscript/Rebrickable-SLQ DW design.json file in this repository.
+The data from `cleansed` container on `rebrickabledevadlsgen2` is initially loaded to `Rebrickabledevsqldw.dbo` temporary schema. Later on it is being loaded to `Rebrickabledevsqldw.Rebrickable` schema as part of SQL script.
+
+The whole SQL script for designing and loading the data to `Rebrickabledevsqldw.Rebrickable` schema is published in /synapse/sqlscript/Rebrickable-SLQ DW design.json file in this repository.
 
 ### Querying data in SQL Server Management Studio
-Following screenshot is showing the database content of `Rebrickabledevsqldw` which is avaliable for querying the data
+Following screenshot is showing the database content of `Rebrickabledevsqldw` which is avaliable for querying the data:
 ![image](https://github.com/user-attachments/assets/7c5ed73e-69ea-479d-a5b4-0e413f64655b)
 
-The data have been queried
 ![image](https://github.com/user-attachments/assets/ce973899-bdb7-4b84-9b64-3f28c72bdb10)
 
 ## Azure Data Factory orchestration for daily loads
