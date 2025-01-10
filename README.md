@@ -122,9 +122,16 @@ The reason for using that method is the data written as delta format in ADLS Gen
 
 Copy methods as PolyBase, COPY INTO or ADF/Synapse pipeline with Copy activity are not avaliable for delta format at the moment.
 
-The Databricks notebook `Rebrickable - loading data to Dedicated SQL Pool` with logic for copying the data to SQL dedicated pool 'Rebrickabledevsqldw` is avaliable in [Azure Rebrickable Project Databricks](https://github.com/A-BartKow/Azure-Rebrickable-Project-Databricks) repository
+The Databricks notebook `Rebrickable - loading data to Dedicated SQL Pool` with logic for copying the data to SQL dedicated pool 'Rebrickabledevsqldw` is avaliable in [Azure Rebrickable Project Databricks](https://github.com/A-BartKow/Azure-Rebrickable-Project-Databricks) repository.
 
+#### Dedicated SQL pool design
+The tables equivalent to external tables registered on `rebrickabledevadlsgen2` have been created in `Rebrickabledevsqldw`:
+1. Date - dimension with heap index and replicate distribution
+2. Profile - dimension table with heap index and replicate distribution
+3. Sets - dimension table with heap index and replicate distribution
+4. Owned Sets - fact table with clustered columnstore index and hash distribution on users' profile id
 
+The whole SQL script for desiging `Rebrickabledevsqldw` is published in /synapse/sqlscript/ location in this repository
 
 ##### Azure Data Factory orchestration for daily loads
 
