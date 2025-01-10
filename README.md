@@ -12,9 +12,9 @@ All Azure Services with possibility to configure repository has been configured 
 
 ## Assumptions
 
-> This project is purely educational and was used to familiarize with and learn different Azure Services used in Data engineering.
-> Some of the solutions applied do not fit for the requirements e.g. the size of data warehouse tables and indexes configured against them.
-> Any deviation from best practises have been explained and usually formed with some 'assumption' to show the understanding of the concept in theory.
+> :memo: **Note:** This project is purely educational and was used to familiarize with and learn different Azure Services used in Data engineering.
+> :memo: **Note:** Some of the solutions applied do not fit for the requirements e.g. the size of data warehouse tables and indexes configured against them.
+> :memo: **Note:** Any deviation from best practises have been explained and usually formed with some 'assumption' to show the understanding of the concept in theory.
 
 ## Solution explanation
 ### Ingest phase
@@ -49,7 +49,7 @@ To make solution the most configurable and flexible in terms of adding the news 
 
 The following structure for data ingestion has been designed:
 - raw - container which is going to keep the raw, unzipped data as is from source
-&nbsp;&nbsp;&nbsp;&nbsp;Rebrickable - name of the project
+- Rebrickable - name of the project
 - [SourceName] - either 'Lego' or 'Users'
 - [DatasetName] - lists of datasets is defined in `RebrickableConfig` table
 - year/month/day - date of ingestion generated dynamically during pipeline execution
