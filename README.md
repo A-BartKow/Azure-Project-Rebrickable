@@ -5,6 +5,7 @@ The purpose of this project was to build the first very simple Data warehouse wi
 1. Ingest phase
 2. Transform phase
 3. Serve phase
+
 The solution is implemented with use of Azure Cloud Data services.
 
 ## Solution explanation
