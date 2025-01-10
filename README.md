@@ -16,7 +16,7 @@ The are two different data sources which have been used in this project:
 2. .json files recieved from calling Rebrickable API containing user's specific LEGO collections - further referred as `Users` data source.
 
 #### Azure services created for this phase
-Following Azure services has been created for ingestion phase:
+Following Azure services have been created for ingestion phase:
 ![image](https://github.com/user-attachments/assets/f217b033-db15-468a-b759-95f555383b62)
 - Azure Storage Account - `rebrickabledevadlsgen2` - with hierachical structure enabled and LRS type of Redundancy
 - Azure Data Factory - `rebrickabledevadf` - the respository for ADF is avaliable in /data-factory/ folder in this repository
