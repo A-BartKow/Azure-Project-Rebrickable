@@ -10,8 +10,6 @@ The purpose of this project was to build the first very simple Data warehouse wi
 The solution is implemented with use of Azure Cloud Data services. 
 All Azure Services with possibility to configure repository has been configured with GitHub repositories.
 
-## Assumptions
-
 > :memo: **Note:** This project is purely educational and was used to familiarize with and learn different Azure Services used in Data engineering.
 > Some of the solutions applied do not fit for the requirements e.g. the size of data warehouse tables and indexes configured against them.
 > Any deviation from best practises have been explained and usually formed with some 'assumption' to show the understanding of the concept in theory.
@@ -22,7 +20,7 @@ All Azure Services with possibility to configure repository has been configured 
 
 The are two different data sources which have been used in this project:
 1. .csv files containing all master data for entities - further referred as `LEGO` data source
-2. .json files recieved from calling Rebrickable API containing user's specific LEGO collections - further referred as `Users` data source.
+2. .json files recieved from calling Rebrickable API containing user's specific LEGO collections - further referred as `Users` data source
 
 #### Azure services created for this phase
 
