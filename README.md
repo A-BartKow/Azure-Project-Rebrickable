@@ -113,12 +113,13 @@ The aim of that phase was to load the external data tables located on `rebrickab
 
 ### Azure services created for this phase
 1. Azure Synapse Analytics workspace - `rebrickabledevsynapse`
-2. Dedicated SQL pool - 'Rebrickabledevsqldw` - dedicated sql pool created in `rebrickabledevsynapse` Azure Synapase Analytics services to which the data will be loaded
+2. Dedicated SQL pool - `Rebrickabledevsqldw` - dedicated sql pool created in `rebrickabledevsynapse` Azure Synapase Analytics services to which the data will be loaded
 ![image](https://github.com/user-attachments/assets/1afa6817-ec10-421e-ba0f-25dc353c37c6)
 
 #### Copying data from ADLS Gen2 to Dedicated SQL Pool
 Within the different various methods for copying the data to SQL dedicated pool Azure Databricks notebook with `spark.write.format('sqldw')` method was used.
 The reason for using that method is the data written as delta format in ADLS Gen 2 `cleasned@rebrickabledevadlsgen2` container which will be used as a source.
+
 Copy methods as PolyBase, COPY INTO or ADF/Synapse pipeline with Copy activity are not avaliable for delta format at the moment.
 
 The Databricks notebook `Rebrickable - loading data to Dedicated SQL Pool` with logic for copying the data to SQL dedicated pool 'Rebrickabledevsqldw` is avaliable in [Azure Rebrickable Project Databricks](https://github.com/A-BartKow/Azure-Rebrickable-Project-Databricks) repository
