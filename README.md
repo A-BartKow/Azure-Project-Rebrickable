@@ -52,7 +52,7 @@ The following structure for data ingestion has been designed:
 #### Additional features
 Lifecycle management policies has been defined and enabled for Azure Blob Storage
 
-## Transforms phase
+## Transform phase
 The aim of the transform phase was to developed the Star schema small Data Mart solution. The data mart is build with below tables:
 
 1. Date - dimension table with dates
@@ -62,6 +62,37 @@ The aim of the transform phase was to developed the Star schema small Data Mart 
 
 #### Azure services used in this phase
 Following Azure services has been created for ingestion phase:
+![image](https://github.com/user-attachments/assets/d2d7701e-a68f-4872-b13b-0119e436dea7)
+- Azure Databricks Service workspace - `rebrickabledevdatabricks` - as a Trial 14 days free pricing tier
+- Azure Key Vault  - `rebrickabledevakvap` - with Vault access policy permission model
+
+##### Azure Databricks cluster
+The cluster has been created in way to manage the costs for this educational project the most effectively.
+The cluster was created with:
+- access mode as `Single user`, 
+- without `Photon Acceleration`,
+- node type `Standard_DS3_v2`
+- terminate after 10 minutes of activity
+
+##### Azure Databricks authentication with ADLS Gen2
+To be able to connect to Rebrickabledevadlsgen2 ADLS the Secret Scope + Service Principal method was implemented.
+Since the already created Azure Key Vault `rebrickabledevakv` has the RBAC permission model, the new AKV was created with `Vault access policy` model to be able to implement chosen authentication type.
+1. Service Principal for Databricks `Rebrikcable-Dev-Databricks` has been created and added to Storage Blob Data Contributor Entra group:
+![image](https://github.com/user-attachments/assets/1c1673ec-1da2-4324-bd89-d76ac714b1b5)
+2. Databricks Service Principal `Databricks-Dev-Rebrickable` secret has been placed in `rebrickabledevakvap` Azure Key Vault.
+3. Use Databricks Service #secrets/createScope and provide the properities for `rebrickabledevakvap` Azure Key Vault.
+
+##### Azure Data Lake Storage container structure and transform phase logic
+The following strucutre of containers has been designed for transforming activities:
+1. curated - data taken from raw container and saved as delta format without any transformations
+2. cleansed - data taken from curated container after cleaning and transformation saved as External Table in dataset folder without any partitioning
+
+The following notebooks has been developed and used in transformation phase (all notebooks are available in repository)
+1. Rebrickable - design and full load - notebook for doing the initial load to curated container, design and register the external tables for Dimensions and facts
+2. Rebrickable - incremental load - notebook used for daily load of new data - saving new files as delta in curated container and updating the external tables with new data
+
+
+
 
 
 
