@@ -33,7 +33,7 @@ Following Azure services have been created for ingestion phase:
 ##### Azure Data Factory content
 
 Following Azure Linked Services has been created in Azure Data Factory:
-<img src="https://github.com/user-attachments/assets/3a95600a-99a8-4684-8639-634b57067b7f" width="1288" height="919">
+![image](https://github.com/user-attachments/assets/3a95600a-99a8-4684-8639-634b57067b7f)
 
 ##### Azure Data Factory logic
 
