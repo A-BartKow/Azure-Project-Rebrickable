@@ -13,8 +13,8 @@ All Azure Services with possibility to configure repository has been configured 
 ## Assumptions
 
 > :memo: **Note:** This project is purely educational and was used to familiarize with and learn different Azure Services used in Data engineering.
-> :memo: **Note:** Some of the solutions applied do not fit for the requirements e.g. the size of data warehouse tables and indexes configured against them.
-> :memo: **Note:** Any deviation from best practises have been explained and usually formed with some 'assumption' to show the understanding of the concept in theory.
+> :memo: Some of the solutions applied do not fit for the requirements e.g. the size of data warehouse tables and indexes configured against them.
+> :memo: Any deviation from best practises have been explained and usually formed with some 'assumption' to show the understanding of the concept in theory.
 
 ## Solution explanation
 ### Ingest phase
