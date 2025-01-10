@@ -131,10 +131,19 @@ The tables equivalent to external tables registered on `rebrickabledevadlsgen2` 
 3. Sets - dimension table with heap index and replicate distribution
 4. Owned Sets - fact table with clustered columnstore index and hash distribution on users' profile id
 
-The whole SQL script for desiging `Rebrickabledevsqldw` is published in /synapse/sqlscript/ location in this repository
+The whole SQL script for desiging `Rebrickabledevsqldw` is published in /synapse/sqlscript/Rebrickable-SLQ DW design.json file in this repository.
 
-##### Azure Data Factory orchestration for daily loads
+### Querying data in SQL Server Management Studio
+Following screenshot is showing the database content of `Rebrickabledevsqldw` which is avaliable for querying the data
+![image](https://github.com/user-attachments/assets/7c5ed73e-69ea-479d-a5b4-0e413f64655b)
+The data have been queried
+![image](https://github.com/user-attachments/assets/ce973899-bdb7-4b84-9b64-3f28c72bdb10)
 
+## Azure Data Factory orchestration for daily loads
+Following pipeline has been created to get the daily loads of data and inserting/upserting it to `Rebrickabledevsqldw.dbo` schema
+![image](https://github.com/user-attachments/assets/5dcdb316-e5a2-4345-8466-aa531860ec75)
+
+The `Execute Rebrickable - Incremental load` and `Execute Rebrickable - loading data to SQL Pool` activities have the job cluster creation option enabled to create, execute and deprovision the cluster after the referenced notebook is executed.
 
 
 
