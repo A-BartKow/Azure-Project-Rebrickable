@@ -6,7 +6,13 @@ The purpose of this project was to build the first very simple Data warehouse wi
 2. Transform phase
 3. Serve phase
 
-The solution is implemented with use of Azure Cloud Data services.
+The solution is implemented with use of Azure Cloud Data services. 
+All Azure Services with possibility to configure repository has been configured with GitHub repositories.
+
+##Assumptions
+This project is purely educational and was used to familiarize with and learn different Azure Services used in Data engineering.
+Some of the solutions applied do not fit for the requirements e.g. the size of data warehouse tables and indexes configured against them.
+Any deviation from best practises have been explained and usually formed with some 'assumption' to show the understanding of the concept in theory.
 
 ## Solution explanation
 ### Ingest phase
@@ -49,6 +55,11 @@ The following structure for data ingestion has been designed:
 3. Following MS Entra groups have been created with minimum least privilege to grant the proper permissions for MIs:
 ![image](https://github.com/user-attachments/assets/75963869-7423-4ec6-a23a-90e095403696)
 4. Azure Logic App has been created for sending an email to Gmail provider when copy of any of the datasets fails
+![image](https://github.com/user-attachments/assets/170e9a32-1c2e-4ffd-a5f4-c221d9ded2be)
+![image](https://github.com/user-attachments/assets/c0273de8-80a1-4050-bb0b-96bfde95f7c1)
+
+![image](https://github.com/user-attachments/assets/35a7d4fb-bde1-4816-add3-53f607d5ddd4)
+
 
 #### Additional features
 Lifecycle management policies has been defined and enabled for Azure Blob Storage
@@ -105,7 +116,7 @@ The following strucutre of containers has been designed for transforming activit
 
 
 The following notebooks have been developed and used in transformation phase 
-(all notebooks are available in [Azure Rebrickable Project Databricks](https://github.com/A-BartKow/Azure-Rebrickable-Project-Databricks) repository)
+(all notebooks are available in [Azure Rebrickable Project Databricks](https://github.com/A-BartKow/Azure-Rebrickable-Project-Databricks) repository with detailed explanation of content)
 1. `Rebrickable - design and full load` - notebook for doing the initial load to curated container, design and register the external tables for Dimensions and Facts tables
 2. `Rebrickable - incremental load` - notebook used for daily load of new data - saving new files as delta in curated container and updating the external tables with new data
 
@@ -134,7 +145,7 @@ The tables equivalent to external tables registered on `rebrickabledevadlsgen2` 
 
 The data from `cleansed` container on `rebrickabledevadlsgen2` is initially loaded to `Rebrickabledevsqldw.dbo` temporary schema. Later on it is being loaded to `Rebrickabledevsqldw.Rebrickable` schema as part of SQL script.
 
-The whole SQL script for designing and loading the data to `Rebrickabledevsqldw.Rebrickable` schema is published in /synapse/sqlscript/Rebrickable-SLQ DW design.json file in this repository.
+The whole SQL script for designing and loading the data (including some additional features set up as column-level and row-leve security) to `Rebrickabledevsqldw.Rebrickable` schema is published in /synapse/sqlscript/Rebrickable-SLQ DW design.json file in this repository.
 
 ### Querying data in SQL Server Management Studio
 Following screenshot is showing the database content of `Rebrickabledevsqldw` which is avaliable for querying the data:
@@ -146,10 +157,14 @@ Following screenshot is showing the database content of `Rebrickabledevsqldw` wh
 Following pipeline has been created to get the daily loads of data and inserting/upserting it to `Rebrickabledevsqldw.dbo` schema
 ![image](https://github.com/user-attachments/assets/5dcdb316-e5a2-4345-8466-aa531860ec75)
 
-The `Execute Rebrickable - Incremental load` and `Execute Rebrickable - loading data to SQL Pool` activities have the job cluster creation option enabled to create, execute and deprovision the cluster after the referenced notebook is executed.
+The `Execute Rebrickable - Incremental load` and `Execute Rebrickable - loading data to SQL Pool` activities have the job cluster creation option enabled to create, execute and deprovision the cluster after the referenced notebook's execution is completed.
 
 
-
+## To Dos and Next Steps for Rebrickable project
+There still some improvements for Rebrickable project which I think of to introduce:
+1. CI/CD for Azure Data Factory and Databricks
+2. Script the Production environment creation by using Terraform
+3. Automate 'Serve phase' part of SQL data loading from `Rebrickabledevsqldw.dbo` schema to `Rebrickabledevsqldw.Rebrickable` as part of daily/incremental load (the `Rebrickable-SLQ DW design` SQL script was executed only once and is not configured for incremental loads)
 
 
 
