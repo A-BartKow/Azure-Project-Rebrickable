@@ -15,3 +15,39 @@ stages:
       dataFactoryName: rebrickabledevadf
       repoRootFolder: /data-factory/
       packageJsonFolder: /devops/
+
+- stage: Development
+  variables:
+  - group: Development
+  jobs:
+  - template: adf-deploy-job.yml
+    parameters:
+      environmentName: Development
+      subscriptionId: 03b6d612-6de5-4a20-9593-97c0994bb508
+      resourceGroupName: AgaBartKow_Rebrickable_Dev_RG
+      dataFactoryName: rebrickabledevadf
+      serviceConnectionName: Rebrickable-Dev-CICD-connection
+      overrideParameters: >
+        -Rebrickable_AKV_properties_typeProperties_baseUrl $(Rebrickable_AKV_properties_typeProperties_baseUrl)
+        -Rebrickable_Config_LS_properties_typeProperties_serviceEndpoint $(Rebrickable_Config_LS_properties_typeProperties_serviceEndpoint)
+        -Rebrickable_LS_properties_typeProperties_url $(Rebrickable_LS_properties_typeProperties_url)
+        -Rebrickable_Website_LS_properties_typeProperties_url $(Rebrickable_Website_LS_properties_typeProperties_url)
+        -Users_LS_properties_typeProperties_url $(Users_LS_properties_typeProperties_url)
+
+- stage: Production
+  variables:
+  - group: Production
+  jobs:
+  - template: adf-deploy-job.yml
+    parameters:
+      environmentName: Production
+      subscriptionId: 03b6d612-6de5-4a20-9593-97c0994bb508
+      resourceGroupName: AgaBartKow_Rebrickable_Prod_RG
+      dataFactoryName: rebrickableprodadf
+      serviceConnectionName: Rebrickable-Prod-CICD-connection
+      overrideParameters: >
+        -Rebrickable_AKV_properties_typeProperties_baseUrl $(Rebrickable_AKV_properties_typeProperties_baseUrl)
+        -Rebrickable_Config_LS_properties_typeProperties_serviceEndpoint $(Rebrickable_Config_LS_properties_typeProperties_serviceEndpoint)
+        -Rebrickable_LS_properties_typeProperties_url $(Rebrickable_LS_properties_typeProperties_url)
+        -Rebrickable_Website_LS_properties_typeProperties_url $(Rebrickable_Website_LS_properties_typeProperties_url)
+        -Users_LS_properties_typeProperties_url $(Users_LS_properties_typeProperties_url)
