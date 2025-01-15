@@ -71,6 +71,14 @@ The following structure for data ingestion has been designed:
 
 Lifecycle management policies has been defined and enabled for Azure Blob Storage
 
+#### CI/CD process for Azure Data Factory with use of Azure DevOps pipelines
+The CI/CD process for Azure Data Factory has been configured with the use of ARM templates.
+The whole process has been designed as described in [Rebrickable-CI-CD readme file] (https://github.com/A-BartKow/Rebrickable-CI-CD/blob/main/data-factory/devops-build-n-deploy-stages/readme.md) which was forked from [Azure-enteprise-templates] (https://github.com/MarczakIO/azure-enterprise-templates) repository.
+
+The deployment was done on development and production environment, after initial build of templates.
+
+The yaml files created for this project are in /devops/ directory of this repository.
+
 ## Transform phase
 
 The aim of the transform phase was to developed the Star schema small datamart solution. The data mart is built with below tables:
@@ -182,9 +190,8 @@ The `Execute Rebrickable - Incremental load` and `Execute Rebrickable - loading 
 ## To Dos and Next Steps for Rebrickable project
 
 There still some improvements for Rebrickable project which I think of to introduce:
-1. CI/CD for Azure Data Factory and Databricks
-2. Script the Production environment creation by using Terraform
-3. Automate 'Serve phase' part of SQL data loading from `Rebrickabledevsqldw.dbo` schema to `Rebrickabledevsqldw.Rebrickable` as part of daily/incremental load (the `Rebrickable-SLQ DW design` SQL script was executed only once and is not configured for incremental loads)
+1. Script the Production environment creation by using Terraform
+2. Automate 'Serve phase' part of SQL data loading from `Rebrickabledevsqldw.dbo` schema to `Rebrickabledevsqldw.Rebrickable` as part of daily/incremental load (the `Rebrickable-SLQ DW design` SQL script was executed only once and is not configured for incremental loads)
 
 
 
