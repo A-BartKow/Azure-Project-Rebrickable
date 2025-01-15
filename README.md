@@ -73,7 +73,7 @@ Lifecycle management policies has been defined and enabled for Azure Blob Storag
 
 #### CI/CD process for Azure Data Factory with use of Azure DevOps pipelines
 The CI/CD process for Azure Data Factory has been configured with the use of ARM templates.
-The whole process has been designed as described in [Rebrickable-CI-CD readme file] (https://github.com/A-BartKow/Rebrickable-CI-CD/blob/main/data-factory/devops-build-n-deploy-stages/readme.md) which was forked from [Azure-enteprise-templates] (https://github.com/MarczakIO/azure-enterprise-templates) repository.
+The whole process has been designed as described in [Rebrickable-CI-CD readme file](https://github.com/A-BartKow/Rebrickable-CI-CD/blob/main/data-factory/devops-build-n-deploy-stages/readme.md) which was forked from [Azure-enteprise-templates](https://github.com/MarczakIO/azure-enterprise-templates) repository.
 
 The deployment was done on development and production environment, after initial build of templates.
 
