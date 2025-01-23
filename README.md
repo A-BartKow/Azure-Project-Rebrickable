@@ -192,6 +192,7 @@ The `Execute Rebrickable - Incremental load` and `Execute Rebrickable - loading 
 There still some improvements for Rebrickable project which I think of to introduce:
 1. Script the Production environment creation by using Terraform
 2. Automate 'Serve phase' part of SQL data loading from `Rebrickabledevsqldw.dbo` schema to `Rebrickabledevsqldw.Rebrickable` as part of daily/incremental load (the `Rebrickable-SLQ DW design` SQL script was executed only once and is not configured for incremental loads)
+3. Create a proper monitoring using Azure Monitor cloud service.
 
 
 
